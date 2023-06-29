@@ -13,6 +13,10 @@
 		52B719FF2A4974E2008873D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52B719FD2A4974E2008873D6 /* Main.storyboard */; };
 		52B71A012A4974E4008873D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52B71A002A4974E4008873D6 /* Assets.xcassets */; };
 		52B71A042A4974E4008873D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52B71A022A4974E4008873D6 /* LaunchScreen.storyboard */; };
+		52B71A112A4D6714008873D6 /* OTMUdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B71A102A4D6714008873D6 /* OTMUdacityClient.swift */; };
+		52B71A152A4D6920008873D6 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B71A142A4D6920008873D6 /* LoginRequest.swift */; };
+		52B71A172A4D6CCA008873D6 /* OTMResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B71A162A4D6CCA008873D6 /* OTMResponse.swift */; };
+		52B71A192A4D6D51008873D6 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B71A182A4D6D51008873D6 /* LoginResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		52B71A002A4974E4008873D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52B71A032A4974E4008873D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52B71A052A4974E4008873D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52B71A102A4D6714008873D6 /* OTMUdacityClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTMUdacityClient.swift; sourceTree = "<group>"; };
+		52B71A142A4D6920008873D6 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		52B71A162A4D6CCA008873D6 /* OTMResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTMResponse.swift; sourceTree = "<group>"; };
+		52B71A182A4D6D51008873D6 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +64,75 @@
 		52B719F62A4974E2008873D6 /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
+				52B71A0E2A4D65E6008873D6 /* Assets */,
+				52B71A0D2A4D65D9008873D6 /* Controller */,
+				52B71A0C2A4D65CD008873D6 /* View */,
+				52B71A0B2A4D65BD008873D6 /* Model */,
 				52B719F72A4974E2008873D6 /* AppDelegate.swift */,
 				52B719F92A4974E2008873D6 /* SceneDelegate.swift */,
-				52B719FB2A4974E2008873D6 /* ViewController.swift */,
-				52B719FD2A4974E2008873D6 /* Main.storyboard */,
-				52B71A002A4974E4008873D6 /* Assets.xcassets */,
-				52B71A022A4974E4008873D6 /* LaunchScreen.storyboard */,
 				52B71A052A4974E4008873D6 /* Info.plist */,
 			);
 			path = OnTheMap;
+			sourceTree = "<group>";
+		};
+		52B71A0B2A4D65BD008873D6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				52B71A132A4D68E3008873D6 /* OTMResponse */,
+				52B71A122A4D68D6008873D6 /* OTMRequest */,
+				52B71A0F2A4D66C6008873D6 /* OTMUdacityClient */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		52B71A0C2A4D65CD008873D6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		52B71A0D2A4D65D9008873D6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				52B719FB2A4974E2008873D6 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		52B71A0E2A4D65E6008873D6 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				52B719FD2A4974E2008873D6 /* Main.storyboard */,
+				52B71A002A4974E4008873D6 /* Assets.xcassets */,
+				52B71A022A4974E4008873D6 /* LaunchScreen.storyboard */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		52B71A0F2A4D66C6008873D6 /* OTMUdacityClient */ = {
+			isa = PBXGroup;
+			children = (
+				52B71A102A4D6714008873D6 /* OTMUdacityClient.swift */,
+			);
+			path = OTMUdacityClient;
+			sourceTree = "<group>";
+		};
+		52B71A122A4D68D6008873D6 /* OTMRequest */ = {
+			isa = PBXGroup;
+			children = (
+				52B71A142A4D6920008873D6 /* LoginRequest.swift */,
+			);
+			path = OTMRequest;
+			sourceTree = "<group>";
+		};
+		52B71A132A4D68E3008873D6 /* OTMResponse */ = {
+			isa = PBXGroup;
+			children = (
+				52B71A162A4D6CCA008873D6 /* OTMResponse.swift */,
+				52B71A182A4D6D51008873D6 /* LoginResponse.swift */,
+			);
+			path = OTMResponse;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +207,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				52B719FC2A4974E2008873D6 /* ViewController.swift in Sources */,
+				52B71A172A4D6CCA008873D6 /* OTMResponse.swift in Sources */,
 				52B719F82A4974E2008873D6 /* AppDelegate.swift in Sources */,
 				52B719FA2A4974E2008873D6 /* SceneDelegate.swift in Sources */,
+				52B71A152A4D6920008873D6 /* LoginRequest.swift in Sources */,
+				52B71A112A4D6714008873D6 /* OTMUdacityClient.swift in Sources */,
+				52B71A192A4D6D51008873D6 /* LoginResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
