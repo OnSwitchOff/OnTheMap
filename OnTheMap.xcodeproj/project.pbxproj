@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		525FBF492A4D8F3A001062A6 /* StudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FBF482A4D8F3A001062A6 /* StudentLocationResponse.swift */; };
+		525FBF4E2A4D954F001062A6 /* OTMQueryStringBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FBF4D2A4D954F001062A6 /* OTMQueryStringBuilder.swift */; };
 		52B719F82A4974E2008873D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B719F72A4974E2008873D6 /* AppDelegate.swift */; };
 		52B719FA2A4974E2008873D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B719F92A4974E2008873D6 /* SceneDelegate.swift */; };
 		52B719FC2A4974E2008873D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B719FB2A4974E2008873D6 /* ViewController.swift */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		525FBF482A4D8F3A001062A6 /* StudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationResponse.swift; sourceTree = "<group>"; };
+		525FBF4D2A4D954F001062A6 /* OTMQueryStringBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTMQueryStringBuilder.swift; sourceTree = "<group>"; };
 		52B719F42A4974E2008873D6 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52B719F72A4974E2008873D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52B719F92A4974E2008873D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +49,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		525FBF4C2A4D94EF001062A6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				525FBF4D2A4D954F001062A6 /* OTMQueryStringBuilder.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		52B719EB2A4974E2008873D6 = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +90,7 @@
 		52B71A0B2A4D65BD008873D6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				525FBF4C2A4D94EF001062A6 /* Service */,
 				52B71A132A4D68E3008873D6 /* OTMResponse */,
 				52B71A122A4D68D6008873D6 /* OTMRequest */,
 				52B71A0F2A4D66C6008873D6 /* OTMUdacityClient */,
@@ -131,6 +144,7 @@
 			children = (
 				52B71A162A4D6CCA008873D6 /* OTMResponse.swift */,
 				52B71A182A4D6D51008873D6 /* LoginResponse.swift */,
+				525FBF482A4D8F3A001062A6 /* StudentLocationResponse.swift */,
 			);
 			path = OTMResponse;
 			sourceTree = "<group>";
@@ -206,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				525FBF492A4D8F3A001062A6 /* StudentLocationResponse.swift in Sources */,
 				52B719FC2A4974E2008873D6 /* ViewController.swift in Sources */,
 				52B71A172A4D6CCA008873D6 /* OTMResponse.swift in Sources */,
 				52B719F82A4974E2008873D6 /* AppDelegate.swift in Sources */,
@@ -213,6 +228,7 @@
 				52B71A152A4D6920008873D6 /* LoginRequest.swift in Sources */,
 				52B71A112A4D6714008873D6 /* OTMUdacityClient.swift in Sources */,
 				52B71A192A4D6D51008873D6 /* LoginResponse.swift in Sources */,
+				525FBF4E2A4D954F001062A6 /* OTMQueryStringBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

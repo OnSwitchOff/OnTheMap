@@ -25,6 +25,16 @@ class ViewController: UIViewController {
     func handleLoginResponse(success: Bool, error: Error?) {
         if success {
             print(success)
+            let params: String = OTMQueryStringBuilder().buildGetStudentLocationQueryParamString(limit: 100, orderBy: "asdasd")
+            _ = OTMUdacityClient.getStudentsLocation(queryParams: params, completion: handleGetStudentLocationResponse(locationList:error:))
+        } else {
+            showLoginFailure(message: error?.localizedDescription ?? "")
+        }
+    }
+    
+    func handleGetStudentLocationResponse(locationList: [StudentLocation], error: Error?) {
+        if error == nil {
+            print(locationList[0].firstName)
         } else {
             showLoginFailure(message: error?.localizedDescription ?? "")
         }
