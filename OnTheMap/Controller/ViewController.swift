@@ -56,6 +56,24 @@ class ViewController: UIViewController {
     func handleCreateNewStudentLocationResponse(success: Bool, error: Error?) {
         if success {
             print(success)
+            
+            print("++++++Update location")
+            let firstName = "Victor"
+            let lastName = "Kas"
+            let mapString = "Mariupol, UA"
+            let mediaURL = "https://udacity.com"
+            let latitude: Double = 40.40
+            let longitude: Double = 40.40
+
+            OTMUdacityClient.updateExistingStudentLocation(firstName: firstName, lastName: lastName, mapString: mapString, mediaUrl: mediaURL, lat: latitude, long: longitude, completion: handleUpdateExistingStudentLocationResponse(success:error:))
+        } else {
+            showLoginFailure(message: error?.localizedDescription ?? "")
+        }
+    }
+    
+    func handleUpdateExistingStudentLocationResponse(success: Bool, error: Error?) {
+        if success {
+            print(success)
         } else {
             showLoginFailure(message: error?.localizedDescription ?? "")
         }

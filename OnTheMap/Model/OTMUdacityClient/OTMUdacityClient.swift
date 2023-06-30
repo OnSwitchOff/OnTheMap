@@ -20,12 +20,14 @@ class OTMUdacityClient {
         case createSession
         case getStudentLocations(String)
         case postStudentLocation
+        case putStudentLocation(String)
         
         var stringValue: String {
             switch self {
             case .createSession: return Endpoints.base + "/session"
             case .getStudentLocations(let queryParams): return Endpoints.base + "/StudentLocation\(queryParams)"
             case .postStudentLocation: return Endpoints.base + "/StudentLocation"
+            case .putStudentLocation(let objectId): return Endpoints.base + "/StudentLocation/\(objectId)"
             }
         }
         
@@ -101,6 +103,60 @@ class OTMUdacityClient {
             }
         }
     }
+    
+    class func taskForPUTRequest<RequestType: Encodable, ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, body: RequestType, offset: Int = 0 ,completion: @escaping (ResponseType?, Error?) -> Void) {
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.httpBody = try! JSONEncoder().encode(body)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                let range = offset..<data.count
+                let efficientData = data.subdata(in: range)
+                print(String(data: efficientData, encoding: .utf8)!)
+                let responseObject = try decoder.decode(ResponseType.self, from: efficientData)
+                DispatchQueue.main.async {
+                    completion(responseObject, nil)
+                }
+            } catch {
+                do {
+                    let range = offset..<data.count
+                    let efficientData = data.subdata(in: range)
+                    let errorResponse = try decoder.decode(OTMResponse.self, from: efficientData) as Error
+                    DispatchQueue.main.async {
+                        completion(nil, errorResponse)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    class func updateExistingStudentLocation(firstName: String, lastName: String, mapString: String,
+                                             mediaUrl: String, lat: Double, long: Double, objectId: String = "",
+                                             completion: @escaping (Bool, Error?) -> Void) {
+         let objectId = objectId.isEmpty ? Auth.objectId : objectId
+         let body = StudentLocation(uniqueKey: Auth.key, firstName: firstName, lastName: lastName, mapString: mapString, mediaUrl: mediaUrl, lat: lat, long: long)
+         taskForPUTRequest(url: Endpoints.putStudentLocation(objectId).url, responseType: UpdateExistingStudentLocationResponse.self, body: body) { response, error in
+             if let response = response {
+                 print("UpdatedAt: " + response.updatedAt)
+                 completion(true, nil)
+             } else {
+                 completion(false, error)
+             }
+         }
+     }
     
     class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
