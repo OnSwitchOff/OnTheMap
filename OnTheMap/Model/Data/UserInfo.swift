@@ -9,61 +9,57 @@ import Foundation
 
 struct UserInfo: Codable {
     let last_name: String
-}
-
-struct UserInfo: Codable {
-    let lastName: String
-    let socialAccounts: [String]
-    let mailingAddress: String?
-    let cohortKeys: [String]
-    let signature: String?
-    let stripeCustomerId: String?
-    let guardInfo: GuardInfo
-    let facebookId: String?
+    let social_accounts: [String]
+    let mailing_address: String?
+    let _cohort_keys: [String]
+    let _signature: String?
+    let _stripe_customer_id: String?
+    let guard_info: GuardInfo
+    let _facebook_id: String?
     let timezone: String?
-    let sitePreferences: String?
+    let site_preferences: String?
     let occupation: String?
-    let image: String?
-    let firstName: String
-    let jabberId: String?
+    let _image: String?
+    let first_name: String
+    let jabber_id: String?
     let languages: [String]
-    let badges: [String]
+    let _badges: [String]
     let location: String?
-    let externalServicePassword: String?
-    let principals: [String]
-    let enrollments: [String]
+    let external_service_password: String?
+    let _principals: [String]
+    let _enrollments: [String]
     let email: EmailInfo
-    let websiteUrl: String?
-    let externalAccounts: [String]
+    let website_url: String?
+    let external_accounts: [String]
     let bio: String?
-    let coachingData: String?
+    let coaching_data: String?
     let tags: [String]
-    let affiliateProfiles: [String]
-    let hasPassword: Bool
-    let emailPreferences: EmailPreferences
-    let resume: String?
+    let _affiliate_profiles: [String]
+    let _has_password: Bool
+    let email_preferences: EmailPreferences
+    let _resume: String?
     let key: String
     let nickname: String
-    let employerSharing: Bool
-    let memberships: [Membership]
-    let zendeskId: String?
-    let registered: Bool
-    let linkedinUrl: String?
-    let googleId: String?
-    let imageUrl: String
+    let employer_sharing: Bool
+    let _memberships: [Membership]
+    let zendesk_id: String?
+    let _registered: Bool
+    let linkedin_url: String?
+    let _google_id: String?
+    let _image_url: String
 }
 
 struct GuardInfo: Codable {
-    let canEdit: Bool
+    let can_edit: Bool
     let permissions: [Permission]
-    let allowedBehaviors: [String]
-    let subjectKind: String
+    let allowed_behaviors: [String]
+    let subject_kind: String
 }
 
 struct Permission: Codable {
     let derivation: [String]
     let behavior: String
-    let principalRef: PrincipalRef
+    let principal_ref: PrincipalRef
 }
 
 struct PrincipalRef: Codable {
@@ -72,20 +68,20 @@ struct PrincipalRef: Codable {
 }
 
 struct EmailInfo: Codable {
-    let verificationCodeSent: Bool
-    let verified: Bool
+    let _verification_code_sent: Bool
+    let _verified: Bool
     let address: String
 }
 
 struct EmailPreferences: Codable {
-    let okUserResearch: Bool
-    let masterOk: Bool
-    let okCourse: Bool
+    let ok_user_research: Bool
+    let master_ok: Bool
+    let ok_course: Bool
 }
 
 struct Membership: Codable {
     let current: Bool
-    let groupRef: PrincipalRef
-    let creationTime: String?
-    let expirationTime: String?
+    let group_ref: PrincipalRef
+    let creation_time: String?
+    let expiration_time: String?
 }
