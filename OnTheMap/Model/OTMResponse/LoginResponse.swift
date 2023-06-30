@@ -18,25 +18,7 @@ struct LoginResponse: Codable {
     }
 }
 
-struct AccountInfo: Codable {
-    
-    let registered: Bool
-    let key: String
-    
-    enum CodingKeys: String, CodingKey {
-        case registered
-        case key
-    }
-}
 
-struct SessionInfo: Codable {
-    
-    let id: String
-    let expiration: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case expiration
-    }
-}
+
+
 

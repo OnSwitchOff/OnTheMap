@@ -76,6 +76,15 @@ class ViewController: UIViewController {
     func handleUpdateExistingStudentLocationResponse(success: Bool, error: Error?) {
         if success {
             print(success)
+            OTMUdacityClient.logout(completion: handleLogoutResponse(success:error:))
+        } else {
+            showLoginFailure(message: error?.localizedDescription ?? "")
+        }
+    }
+    
+    func handleLogoutResponse(success: Bool, error: Error?) {
+        if success {
+            print(success)
         } else {
             showLoginFailure(message: error?.localizedDescription ?? "")
         }

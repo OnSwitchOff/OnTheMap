@@ -12,6 +12,9 @@
 		525FBF512A4EA895001062A6 /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FBF502A4EA895001062A6 /* StudentLocation.swift */; };
 		525FBF532A4EA9E6001062A6 /* PostStudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FBF522A4EA9E6001062A6 /* PostStudentLocationResponse.swift */; };
 		525FBF552A4EBB5E001062A6 /* UpdateExistingStudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FBF542A4EBB5E001062A6 /* UpdateExistingStudentLocationResponse.swift */; };
+		525FBF572A4EC447001062A6 /* SessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FBF562A4EC447001062A6 /* SessionInfo.swift */; };
+		525FBF592A4EC579001062A6 /* LogoutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FBF582A4EC579001062A6 /* LogoutResponse.swift */; };
+		525FBF5B2A4EC5C5001062A6 /* AccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FBF5A2A4EC5C5001062A6 /* AccountInfo.swift */; };
 		52B719F82A4974E2008873D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B719F72A4974E2008873D6 /* AppDelegate.swift */; };
 		52B719FA2A4974E2008873D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B719F92A4974E2008873D6 /* SceneDelegate.swift */; };
 		52B719FC2A4974E2008873D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B719FB2A4974E2008873D6 /* ViewController.swift */; };
@@ -30,6 +33,9 @@
 		525FBF502A4EA895001062A6 /* StudentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 		525FBF522A4EA9E6001062A6 /* PostStudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStudentLocationResponse.swift; sourceTree = "<group>"; };
 		525FBF542A4EBB5E001062A6 /* UpdateExistingStudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateExistingStudentLocationResponse.swift; sourceTree = "<group>"; };
+		525FBF562A4EC447001062A6 /* SessionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfo.swift; sourceTree = "<group>"; };
+		525FBF582A4EC579001062A6 /* LogoutResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutResponse.swift; sourceTree = "<group>"; };
+		525FBF5A2A4EC5C5001062A6 /* AccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfo.swift; sourceTree = "<group>"; };
 		52B719F42A4974E2008873D6 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52B719F72A4974E2008873D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52B719F92A4974E2008873D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +73,8 @@
 			isa = PBXGroup;
 			children = (
 				525FBF502A4EA895001062A6 /* StudentLocation.swift */,
+				525FBF562A4EC447001062A6 /* SessionInfo.swift */,
+				525FBF5A2A4EC5C5001062A6 /* AccountInfo.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -162,6 +170,7 @@
 				525FBF482A4D8F3A001062A6 /* StudentLocationResponse.swift */,
 				525FBF522A4EA9E6001062A6 /* PostStudentLocationResponse.swift */,
 				525FBF542A4EBB5E001062A6 /* UpdateExistingStudentLocationResponse.swift */,
+				525FBF582A4EC579001062A6 /* LogoutResponse.swift */,
 			);
 			path = OTMResponse;
 			sourceTree = "<group>";
@@ -239,10 +248,13 @@
 			files = (
 				525FBF492A4D8F3A001062A6 /* StudentLocationResponse.swift in Sources */,
 				52B719FC2A4974E2008873D6 /* ViewController.swift in Sources */,
+				525FBF5B2A4EC5C5001062A6 /* AccountInfo.swift in Sources */,
 				52B71A172A4D6CCA008873D6 /* OTMResponse.swift in Sources */,
 				52B719F82A4974E2008873D6 /* AppDelegate.swift in Sources */,
+				525FBF592A4EC579001062A6 /* LogoutResponse.swift in Sources */,
 				52B719FA2A4974E2008873D6 /* SceneDelegate.swift in Sources */,
 				52B71A152A4D6920008873D6 /* LoginRequest.swift in Sources */,
+				525FBF572A4EC447001062A6 /* SessionInfo.swift in Sources */,
 				525FBF532A4EA9E6001062A6 /* PostStudentLocationResponse.swift in Sources */,
 				52B71A112A4D6714008873D6 /* OTMUdacityClient.swift in Sources */,
 				525FBF552A4EBB5E001062A6 /* UpdateExistingStudentLocationResponse.swift in Sources */,

@@ -21,6 +21,7 @@ class OTMUdacityClient {
         case getStudentLocations(String)
         case postStudentLocation
         case putStudentLocation(String)
+        case deleteSession
         
         var stringValue: String {
             switch self {
@@ -28,6 +29,7 @@ class OTMUdacityClient {
             case .getStudentLocations(let queryParams): return Endpoints.base + "/StudentLocation\(queryParams)"
             case .postStudentLocation: return Endpoints.base + "/StudentLocation"
             case .putStudentLocation(let objectId): return Endpoints.base + "/StudentLocation/\(objectId)"
+            case .deleteSession: return Endpoints.base + "/session"
             }
         }
         
@@ -158,6 +160,63 @@ class OTMUdacityClient {
          }
      }
     
+    class func taskForDELETERequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, offset: Int = 0 ,completion: @escaping (ResponseType?, Error?) -> Void) {
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie}
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                let range = offset..<data.count
+                let efficientData = data.subdata(in: range)
+                print(String(data: efficientData, encoding: .utf8)!)
+                let responseObject = try decoder.decode(ResponseType.self, from: efficientData)
+                DispatchQueue.main.async {
+                    completion(responseObject, nil)
+                }
+            } catch {
+                do {
+                    let range = offset..<data.count
+                    let efficientData = data.subdata(in: range)
+                    let errorResponse = try decoder.decode(OTMResponse.self, from: efficientData) as Error
+                    DispatchQueue.main.async {
+                        completion(nil, errorResponse)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    class func logout(completion: @escaping (Bool, Error?) -> Void) {
+        taskForDELETERequest(url: Endpoints.deleteSession.url, responseType: LogoutResponse.self, offset: 5) { response, error in
+            if let response = response {
+                print("SessionId: " + response.session.id)
+                completion(true, nil)
+            } else {
+                completion(false, error)
+            }
+        }
+    }
+    
+    
     class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data else {
@@ -191,7 +250,7 @@ class OTMUdacityClient {
         return task
     }
     
-    class func getStudentsLocation(queryParams: String, completion: @escaping ([StudentLocation], Error?) -> Void) -> URLSessionDataTask {
+    class func getStudentsLocation(queryParams: String, completion: @escaping ([StudentLocation]?, Error?) -> Void) -> URLSessionDataTask {
         let task = taskForGETRequest(url: Endpoints.getStudentLocations(queryParams).url, responseType: StudentLocationResponse.self) { response, error in
             if let response = response {
                 completion(response.results, nil)
