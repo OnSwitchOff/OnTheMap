@@ -168,6 +168,7 @@ class OTMUdacityClient {
             }
             let decoder = JSONDecoder()
             do {
+                print(String(data: data, encoding: .utf8)!)
                 let responseObject = try decoder.decode(ResponseType.self, from: data)
                 DispatchQueue.main.async {
                     completion(responseObject, nil)

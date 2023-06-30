@@ -25,18 +25,20 @@ class ViewController: UIViewController {
     func handleLoginResponse(success: Bool, error: Error?) {
         if success {
             print(success)
-            let params: String = OTMQueryStringBuilder().buildGetStudentLocationQueryParamString(limit: 100, orderBy: "asdasd")
+            let params: String = OTMQueryStringBuilder().buildGetStudentLocationQueryParamString(limit: 100)
             _ = OTMUdacityClient.getStudentsLocation(queryParams: params, completion: handleGetStudentLocationResponse(locationList:error:))
         } else {
             showLoginFailure(message: error?.localizedDescription ?? "")
         }
     }
     
-    func handleGetStudentLocationResponse(locationList: [StudentLocation], error: Error?) {
+    func handleGetStudentLocationResponse(locationList: [StudentLocation]?, error: Error?) {
         if error == nil {
-            for l in locationList {
-                print(l.firstName)
-                print(l.uniqueKey)
+            if let locationList = locationList {
+                for l in locationList {
+                    print(l.firstName)
+                    print(l.uniqueKey)
+                }
             }
             print("++++++Create location")
             let firstName = "Victor"
@@ -64,7 +66,7 @@ class ViewController: UIViewController {
             let mediaURL = "https://udacity.com"
             let latitude: Double = 40.40
             let longitude: Double = 40.40
-
+            Thread.sleep(forTimeInterval: 2.0)
             OTMUdacityClient.updateExistingStudentLocation(firstName: firstName, lastName: lastName, mapString: mapString, mediaUrl: mediaURL, lat: latitude, long: longitude, completion: handleUpdateExistingStudentLocationResponse(success:error:))
         } else {
             showLoginFailure(message: error?.localizedDescription ?? "")
