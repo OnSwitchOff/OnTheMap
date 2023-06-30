@@ -85,6 +85,15 @@ class ViewController: UIViewController {
     func handleLogoutResponse(success: Bool, error: Error?) {
         if success {
             print(success)
+            _ = OTMUdacityClient.getPublicUserInfo(completion: handleGetPublicUserInfoResponse(userInfo:error:))
+        } else {
+            showLoginFailure(message: error?.localizedDescription ?? "")
+        }
+    }
+    
+    func handleGetPublicUserInfoResponse(userInfo: UserInfo?, error: Error?) {
+        if let userInfo = userInfo {
+            print(userInfo.last_name)
         } else {
             showLoginFailure(message: error?.localizedDescription ?? "")
         }

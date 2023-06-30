@@ -15,6 +15,10 @@ class OTMUdacityClient {
         static var objectId = ""
     }
     
+    struct Test {
+        static var userId = ""
+    }
+    
     enum Endpoints {
         static let base = "https://onthemap-api.udacity.com/v1"
         case createSession
@@ -22,6 +26,7 @@ class OTMUdacityClient {
         case postStudentLocation
         case putStudentLocation(String)
         case deleteSession
+        case getPublicUserInfo(String)
         
         var stringValue: String {
             switch self {
@@ -30,6 +35,7 @@ class OTMUdacityClient {
             case .postStudentLocation: return Endpoints.base + "/StudentLocation"
             case .putStudentLocation(let objectId): return Endpoints.base + "/StudentLocation/\(objectId)"
             case .deleteSession: return Endpoints.base + "/session"
+            case .getPublicUserInfo(let userId): return Endpoints.base + "/users/\(userId)"
             }
         }
         
@@ -253,9 +259,22 @@ class OTMUdacityClient {
     class func getStudentsLocation(queryParams: String, completion: @escaping ([StudentLocation]?, Error?) -> Void) -> URLSessionDataTask {
         let task = taskForGETRequest(url: Endpoints.getStudentLocations(queryParams).url, responseType: StudentLocationResponse.self) { response, error in
             if let response = response {
+                Test.userId = response.results?.last?.uniqueKey ?? ""
                 completion(response.results, nil)
             } else {
-                completion([], error)
+                completion(nil, error)
+            }
+        }
+        return task
+    }
+    
+    class func getPublicUserInfo(userId: String = "", completion: @escaping (UserInfo?, Error?) -> Void) -> URLSessionDataTask {
+        let userId = userId.isEmpty ? Test.userId : userId
+        let task = taskForGETRequest(url: Endpoints.getPublicUserInfo(userId).url, responseType: GetPublicUserDataResponse.self) { response, error in
+            if let response = response {
+                completion(response.user, nil)
+            } else {
+                completion(nil, error)
             }
         }
         return task
