@@ -223,7 +223,7 @@ class OTMUdacityClient {
     }
     
     
-    class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
+    class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, offset: Int = 0, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data else {
                 DispatchQueue.main.async {
@@ -233,14 +233,19 @@ class OTMUdacityClient {
             }
             let decoder = JSONDecoder()
             do {
-                print(String(data: data, encoding: .utf8)!)
-                let responseObject = try decoder.decode(ResponseType.self, from: data)
+                let range = offset..<data.count
+                let efficientData = data.subdata(in: range)
+                let responseObject = try decoder.decode(ResponseType.self, from: efficientData)
                 DispatchQueue.main.async {
                     completion(responseObject, nil)
                 }
             } catch {
                 do {
-                    let errorResponse = try decoder.decode(OTMResponse.self, from: data) as Error
+                    let range = offset..<data.count
+                    let efficientData = data.subdata(in: range)
+                    print(String(data: efficientData, encoding: .utf8)!)
+                    print(error.localizedDescription)
+                    let errorResponse = try decoder.decode(OTMResponse.self, from: efficientData) as Error
                     DispatchQueue.main.async {
                         completion(nil, errorResponse)
                     }
@@ -270,9 +275,9 @@ class OTMUdacityClient {
     
     class func getPublicUserInfo(userId: String = "", completion: @escaping (UserInfo?, Error?) -> Void) -> URLSessionDataTask {
         let userId = userId.isEmpty ? Test.userId : userId
-        let task = taskForGETRequest(url: Endpoints.getPublicUserInfo(userId).url, responseType: GetPublicUserDataResponse.self) { response, error in
+        let task = taskForGETRequest(url: Endpoints.getPublicUserInfo(userId).url, responseType: UserInfo.self, offset: 5) { response, error in
             if let response = response {
-                completion(response.user, nil)
+                completion(response, nil)
             } else {
                 completion(nil, error)
             }

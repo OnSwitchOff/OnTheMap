@@ -93,7 +93,7 @@ class ViewController: UIViewController {
     
     func handleGetPublicUserInfoResponse(userInfo: UserInfo?, error: Error?) {
         if let userInfo = userInfo {
-            print(userInfo.last_name)
+            print(userInfo.lastName)
         } else {
             showLoginFailure(message: error?.localizedDescription ?? "")
         }

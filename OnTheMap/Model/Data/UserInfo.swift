@@ -22,65 +22,65 @@ struct UserInfo: Codable {
     let image: String?
     let firstName: String
     let jabberId: String?
-    let languages: [String]
-    let badges: [String]
+    let languages: [String]?
+    let badges: [String]?
     let location: String?
     let externalServicePassword: String?
-    let principals: [String]
-    let enrollments: [String]
+    let principals: [String]?
+    let enrollments: [String]?
     let email: EmailInfo
     let websiteUrl: String?
-    let externalAccounts: [String]
+    let externalAccounts: [String]?
     let bio: String?
     let coachingData: String?
-    let tags: [String]
-    let affiliateProfiles: [String]
+    let tags: [String]?
+    let affiliateProfiles: [String]?
     let hasPassword: Bool
-    let emailPreferences: EmailPreferences
+    let emailPreferences: EmailPreferences?
     let resume: String?
     let key: String
     let nickname: String
     let employerSharing: Bool
-    let memberships: [Membership]
+    let memberships: [Membership]?
     let zendeskId: String?
     let registered: Bool
     let linkedinUrl: String?
     let googleId: String?
-    let imageUrl: String
+    let imageUrl: String?
     
     enum CodingKeys: String, CodingKey {
         case lastName = "last_name"
-        case socialAccounts
-        case mailingAddress
+        case socialAccounts = "social_accounts"
+        case mailingAddress = "mailing_address"
         case cohortKeys = "_cohort_keys"
         case signature = "_signature"
         case stripeCustomerId = "_stripe_customer_id"
         case guardInfo = "guard"
         case facebookId = "_facebook_id"
         case timezone
-        case sitePreferences
+        case sitePreferences = "site_preferences"
         case occupation
         case image = "_image"
-        case firstName
-        case jabberId
+        case firstName = "first_name"
+        case jabberId = "jabber_id"
         case languages
         case badges = "_badges"
         case location
-        case externalServicePassword
+        case externalServicePassword = "external_service_password"
         case principals = "_principals"
         case enrollments = "_enrollments"
         case email
-        case websiteUrl
-        case externalAccounts
-        case bio
-        case coachingData
+        case websiteUrl = "website_url"
+        case externalAccounts = "external_accounts"
+        case bio = "bio"
+        case coachingData = "coaching_data"
         case tags
         case affiliateProfiles = "_affiliate_profiles"
         case hasPassword = "_has_password"
-        case emailPreferences
+        case emailPreferences = "email_preferences"
         case resume = "_resume"
         case key
-        case nickname
+        case nickname = "nickname"
         case employerSharing = "employer_sharing"
         case memberships = "_memberships"
         case zendeskId = "zendesk_id"
@@ -92,19 +92,19 @@ struct UserInfo: Codable {
 }
 
 struct GuardInfo: Codable {
-    let can_edit: Bool
-    let permissions: [Permission]
-    let allowed_behaviors: [String]
-    let subject_kind: String
+    let can_edit: Bool?
+    let permissions: [Permission]?
+    let allowed_behaviors: [String]?
+    let subject_kind: String?
 }
 
 struct Permission: Codable {
     let derivation: [String]
     let behavior: String
-    let principal_ref: PrincipalRef
+    let principal_ref: RefKey
 }
 
-struct PrincipalRef: Codable {
+struct RefKey: Codable {
     let ref: String
     let key: String
 }
@@ -123,7 +123,7 @@ struct EmailPreferences: Codable {
 
 struct Membership: Codable {
     let current: Bool
-    let group_ref: PrincipalRef
+    let group_ref: RefKey
     let creation_time: String?
     let expiration_time: String?
 }
