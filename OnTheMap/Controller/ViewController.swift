@@ -34,7 +34,28 @@ class ViewController: UIViewController {
     
     func handleGetStudentLocationResponse(locationList: [StudentLocation], error: Error?) {
         if error == nil {
-            print(locationList[0].firstName)
+            for l in locationList {
+                print(l.firstName)
+                print(l.uniqueKey)
+            }
+            print("++++++Create location")
+            let firstName = "Victor"
+            let lastName = "Kas"
+            let mapString = "Kyiv, UA"
+            let mediaURL = "https://udacity.com"
+            let latitude: Double = 40.40
+            let longitude: Double = 40.40
+
+            OTMUdacityClient.createNewStudentLocation(firstName: firstName, lastName: lastName, mapString: mapString, mediaUrl: mediaURL, lat: latitude, long: longitude, completion: handleCreateNewStudentLocationResponse(success:error:))
+            
+        } else {
+            showLoginFailure(message: error?.localizedDescription ?? "")
+        }
+    }
+    
+    func handleCreateNewStudentLocationResponse(success: Bool, error: Error?) {
+        if success {
+            print(success)
         } else {
             showLoginFailure(message: error?.localizedDescription ?? "")
         }

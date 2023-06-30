@@ -11,17 +11,21 @@ class OTMUdacityClient {
     
     struct Auth {
         static var sessionId = ""
+        static var key = ""
+        static var objectId = ""
     }
     
     enum Endpoints {
         static let base = "https://onthemap-api.udacity.com/v1"
         case createSession
         case getStudentLocations(String)
+        case postStudentLocation
         
         var stringValue: String {
             switch self {
             case .createSession: return Endpoints.base + "/session"
             case .getStudentLocations(let queryParams): return Endpoints.base + "/StudentLocation\(queryParams)"
+            case .postStudentLocation: return Endpoints.base + "/StudentLocation"
             }
         }
         
@@ -30,7 +34,7 @@ class OTMUdacityClient {
         }
     }
     
-    class func taskForPOSTRequest<RequestType: Encodable, ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, body: RequestType, completion: @escaping (ResponseType?, Error?) -> Void) {
+    class func taskForPOSTRequest<RequestType: Encodable, ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, body: RequestType, offset: Int = 0 ,completion: @escaping (ResponseType?, Error?) -> Void) {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = try! JSONEncoder().encode(body)
@@ -44,7 +48,7 @@ class OTMUdacityClient {
             }
             let decoder = JSONDecoder()
             do {
-                let range = 5..<data.count
+                let range = offset..<data.count
                 let efficientData = data.subdata(in: range)
                 print(String(data: efficientData, encoding: .utf8)!)
                 let responseObject = try decoder.decode(ResponseType.self, from: efficientData)
@@ -53,7 +57,7 @@ class OTMUdacityClient {
                 }
             } catch {
                 do {
-                    let range = 5..<data.count
+                    let range = offset..<data.count
                     let efficientData = data.subdata(in: range)
                     let errorResponse = try decoder.decode(OTMResponse.self, from: efficientData) as Error
                     DispatchQueue.main.async {
@@ -71,10 +75,26 @@ class OTMUdacityClient {
     
     class func login(username: String, password: String, completion: @escaping (Bool, Error?) -> Void) {
         let body = LoginRequest(name: username, password: password)
-        taskForPOSTRequest(url: Endpoints.createSession.url, responseType: LoginResponse.self, body: body) { response, error in
+        taskForPOSTRequest(url: Endpoints.createSession.url, responseType: LoginResponse.self, body: body, offset: 5) { response, error in
             if let response = response {
                 Auth.sessionId = response.session.id
+                Auth.key = response.account.key
                 print("Auth.sessionId: " + Auth.sessionId)
+                completion(true, nil)
+            } else {
+                completion(false, error)
+            }
+        }
+    }
+    
+    class func createNewStudentLocation(firstName: String, lastName: String, mapString: String,
+                                        mediaUrl: String, lat: Double, long: Double,
+                                        completion: @escaping (Bool, Error?) -> Void) {
+        let body = StudentLocation(uniqueKey: Auth.key, firstName: firstName, lastName: lastName, mapString: mapString, mediaUrl: mediaUrl, lat: lat, long: long)
+        taskForPOSTRequest(url: Endpoints.postStudentLocation.url, responseType: PostStudentLocationResponse.self, body: body) { response, error in
+            if let response = response {
+                print("ObjectId: " + response.objectId)
+                Auth.objectId = response.objectId
                 completion(true, nil)
             } else {
                 completion(false, error)
