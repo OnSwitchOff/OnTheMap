@@ -8,45 +8,87 @@
 import Foundation
 
 struct UserInfo: Codable {
-    let last_name: String
-    let social_accounts: [String]
-    let mailing_address: String?
-    let _cohort_keys: [String]
-    let _signature: String?
-    let _stripe_customer_id: String?
-    let guard_info: GuardInfo
-    let _facebook_id: String?
+    let lastName: String
+    let socialAccounts: [String]
+    let mailingAddress: String?
+    let cohortKeys: [String]
+    let signature: String?
+    let stripeCustomerId: String?
+    let guardInfo: GuardInfo
+    let facebookId: String?
     let timezone: String?
-    let site_preferences: String?
+    let sitePreferences: String?
     let occupation: String?
-    let _image: String?
-    let first_name: String
-    let jabber_id: String?
+    let image: String?
+    let firstName: String
+    let jabberId: String?
     let languages: [String]
-    let _badges: [String]
+    let badges: [String]
     let location: String?
-    let external_service_password: String?
-    let _principals: [String]
-    let _enrollments: [String]
+    let externalServicePassword: String?
+    let principals: [String]
+    let enrollments: [String]
     let email: EmailInfo
-    let website_url: String?
-    let external_accounts: [String]
+    let websiteUrl: String?
+    let externalAccounts: [String]
     let bio: String?
-    let coaching_data: String?
+    let coachingData: String?
     let tags: [String]
-    let _affiliate_profiles: [String]
-    let _has_password: Bool
-    let email_preferences: EmailPreferences
-    let _resume: String?
+    let affiliateProfiles: [String]
+    let hasPassword: Bool
+    let emailPreferences: EmailPreferences
+    let resume: String?
     let key: String
     let nickname: String
-    let employer_sharing: Bool
-    let _memberships: [Membership]
-    let zendesk_id: String?
-    let _registered: Bool
-    let linkedin_url: String?
-    let _google_id: String?
-    let _image_url: String
+    let employerSharing: Bool
+    let memberships: [Membership]
+    let zendeskId: String?
+    let registered: Bool
+    let linkedinUrl: String?
+    let googleId: String?
+    let imageUrl: String
+    
+    enum CodingKeys: String, CodingKey {
+        case lastName = "last_name"
+        case socialAccounts
+        case mailingAddress
+        case cohortKeys = "_cohort_keys"
+        case signature = "_signature"
+        case stripeCustomerId = "_stripe_customer_id"
+        case guardInfo = "guard"
+        case facebookId = "_facebook_id"
+        case timezone
+        case sitePreferences
+        case occupation
+        case image = "_image"
+        case firstName
+        case jabberId
+        case languages
+        case badges = "_badges"
+        case location
+        case externalServicePassword
+        case principals = "_principals"
+        case enrollments = "_enrollments"
+        case email
+        case websiteUrl
+        case externalAccounts
+        case bio
+        case coachingData
+        case tags
+        case affiliateProfiles = "_affiliate_profiles"
+        case hasPassword = "_has_password"
+        case emailPreferences
+        case resume = "_resume"
+        case key
+        case nickname
+        case employerSharing = "employer_sharing"
+        case memberships = "_memberships"
+        case zendeskId = "zendesk_id"
+        case registered = "_registered"
+        case linkedinUrl = "linkedin_url"
+        case googleId = "_google_id"
+        case imageUrl = "_image_url"
+    }
 }
 
 struct GuardInfo: Codable {
