@@ -66,7 +66,7 @@ class ViewController: UIViewController {
             let mediaURL = "https://udacity.com"
             let latitude: Double = 40.40
             let longitude: Double = 40.40
-            Thread.sleep(forTimeInterval: 2.0)
+            //Thread.sleep(forTimeInterval: 2.0)
             OTMUdacityClient.updateExistingStudentLocation(firstName: firstName, lastName: lastName, mapString: mapString, mediaUrl: mediaURL, lat: latitude, long: longitude, completion: handleUpdateExistingStudentLocationResponse(success:error:))
         } else {
             showLoginFailure(message: error?.localizedDescription ?? "")
@@ -94,6 +94,7 @@ class ViewController: UIViewController {
     func handleGetPublicUserInfoResponse(userInfo: UserInfo?, error: Error?) {
         if let userInfo = userInfo {
             print(userInfo.lastName)
+            performSegue(withIdentifier: "completeLogin", sender: nil)
         } else {
             showLoginFailure(message: error?.localizedDescription ?? "")
         }
@@ -104,5 +105,13 @@ class ViewController: UIViewController {
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         show(alertVC, sender: nil)
     }
+}
+
+extension UIViewController {
+    
+    @IBAction func logoutTapped(_ sender: UIBarButtonItem) {
+
+    }
+    
 }
 
