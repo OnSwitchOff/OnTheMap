@@ -24,8 +24,7 @@ class ViewController: UIViewController {
     
     func handleLoginResponse(success: Bool, error: Error?) {
         if success {
-            print(success)
-            let params: String = OTMQueryStringBuilder().buildGetStudentLocationQueryParamString(limit: 100)
+            let params: String = OTMQueryStringBuilder().buildGetStudentLocationQueryParamString(limit: 100, orderBy: "updatedAt", asc: false)
             _ = OTMUdacityClient.getStudentsLocation(queryParams: params, completion: handleGetStudentLocationResponse(locationList:error:))
         } else {
             showLoginFailure(message: error?.localizedDescription ?? "")
@@ -35,21 +34,19 @@ class ViewController: UIViewController {
     func handleGetStudentLocationResponse(locationList: [StudentLocation]?, error: Error?) {
         if error == nil {
             if let locationList = locationList {
-                for l in locationList {
-                    print(l.firstName)
-                    print(l.uniqueKey)
-                }
+                OnTheMapData.locationList = locationList
             }
-            print("++++++Create location")
+            performSegue(withIdentifier: "completeLogin", sender: nil)
+            
+            
+            /*print("++++++Create location")
             let firstName = "Victor"
             let lastName = "Kas"
             let mapString = "Kyiv, UA"
             let mediaURL = "https://udacity.com"
             let latitude: Double = 40.40
             let longitude: Double = 40.40
-
-            OTMUdacityClient.createNewStudentLocation(firstName: firstName, lastName: lastName, mapString: mapString, mediaUrl: mediaURL, lat: latitude, long: longitude, completion: handleCreateNewStudentLocationResponse(success:error:))
-            
+            OTMUdacityClient.createNewStudentLocation(firstName: firstName, lastName: lastName, mapString: mapString, mediaUrl: mediaURL, lat: latitude, long: longitude, completion: handleCreateNewStudentLocationResponse(success:error:))*/
         } else {
             showLoginFailure(message: error?.localizedDescription ?? "")
         }
@@ -110,7 +107,29 @@ class ViewController: UIViewController {
 extension UIViewController {
     
     @IBAction func logoutTapped(_ sender: UIBarButtonItem) {
-
+        OTMUdacityClient.logout {_,_ in 
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @IBAction func pinTapped(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: "Confirmation", message: "Do you want to post your location?", preferredStyle: .alert)
+        
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { [self] (_) in
+            OnTheMapData.selectedLocation = nil
+            //self.performSegue(withIdentifier: "showDetail", sender: nil)
+            self.performSegue(withIdentifier: "postLocation", sender: nil)
+        }
+        
+        let noAction = UIAlertAction(title: "No", style: .cancel) { (_) in
+            
+        }
+        
+        alertController.addAction(yesAction)
+        alertController.addAction(noAction)
+        present(alertController, animated: true, completion: nil)
     }
     
 }

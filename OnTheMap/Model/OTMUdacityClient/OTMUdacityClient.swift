@@ -105,6 +105,7 @@ class OTMUdacityClient {
             if let response = response {
                 print("ObjectId: " + response.objectId)
                 Auth.objectId = response.objectId
+                OnTheMapData.locationList.insert(body, at: 0)
                 completion(true, nil)
             } else {
                 completion(false, error)
