@@ -4,7 +4,7 @@
 //
 //  Created by MacBook Pro on 26.06.23.
 //
-
+import Foundation
 import UIKit
 
 class ViewController: UIViewController {
@@ -12,11 +12,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
 
     @IBAction func loginTapped(_ sender: UIButton) {
         OTMUdacityClient.login(username: emailTextField.text ?? "", password: passwordTextField.text ?? "", completion: handleLoginResponse(success:error:))
@@ -27,7 +22,18 @@ class ViewController: UIViewController {
             let params: String = OTMQueryStringBuilder().buildGetStudentLocationQueryParamString(limit: 100, orderBy: "updatedAt", asc: false)
             _ = OTMUdacityClient.getStudentsLocation(queryParams: params, completion: handleGetStudentLocationResponse(locationList:error:))
         } else {
-            showLoginFailure(message: error?.localizedDescription ?? "")
+            if let response = error as? OTMResponse {
+                switch response.statusCode {
+                case 400:
+                    showLoginFailure(message: "Please enter your credentials")
+                case 403:
+                    showLoginFailure(message: "The credentials were incorrect, please check youy email or/and your password")
+                default:
+                    showLoginFailure(message: error?.localizedDescription ?? "")
+                }
+                return
+            }
+            showLoginFailure(message: "The Internet connection is offline, please try againe later")
         }
     }
     

@@ -85,7 +85,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
                 } else {
                     let alertVC = UIAlertController(title: "Open URL Failed", message: toOpen, preferredStyle: .alert)
                     alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    show(alertVC, sender: nil)
+                    present(alertVC, animated: true)
                 }
             }
         }

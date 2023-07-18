@@ -336,7 +336,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EnH-36-0ua">
-                                <rect key="frame" x="29" y="56" width="365" height="253.5"/>
+                                <rect key="frame" x="29" y="56" width="365" height="273.5"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter your location or pick it using map" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bTZ-DB-EQw">
                                         <rect key="frame" x="0.0" y="0.0" width="365" height="34"/>
@@ -370,6 +370,9 @@
                                             <action selector="postLocationTapped:" destination="rdD-ph-sBF" eventType="touchUpInside" id="3iu-nG-Ewt"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="qtT-IN-uKa">
+                                        <rect key="frame" x="0.0" y="253.5" width="365" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -383,8 +386,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="8gD-yt-iFz"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="qtT-IN-uKa" id="gJy-sb-D7u"/>
                         <outlet property="mapView" destination="Zhi-et-Co0" id="ALj-xc-l8H"/>
                         <outlet property="mediaUrlTextField" destination="dKb-Lz-fL1" id="UVd-Hv-2bl"/>
+                        <outlet property="postLocationButton" destination="zV6-rx-pfe" id="N5m-1v-pxb"/>
+                        <outlet property="searchButton" destination="2Rl-tS-0WX" id="ayo-WU-HrR"/>
                         <outlet property="searchTextField" destination="bTZ-DB-EQw" id="qsX-1s-jJV"/>
                     </connections>
                 </viewController>

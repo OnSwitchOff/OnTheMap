@@ -10,9 +10,12 @@ import MapKit
 
 class PostStudentLocationViewController: UIViewController, MKMapViewDelegate {
     
+    @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var mediaUrlTextField: UITextField!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var postLocationButton: UIButton!
     
     var lastAddedAnnotation: MKPointAnnotation? = nil
     
@@ -28,8 +31,11 @@ class PostStudentLocationViewController: UIViewController, MKMapViewDelegate {
         let geocoder = CLGeocoder()
         let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         
+        handleActivityAnimation(isActive: true)
+        
         geocoder.reverseGeocodeLocation(location) { placemarks, error in
             if let _ = error{
+                self.handleActivityAnimation(isActive: false)
                 return
             }
             
@@ -48,10 +54,13 @@ class PostStudentLocationViewController: UIViewController, MKMapViewDelegate {
                         if let error = error {
                             print(error)
                             self.searchTextField.text = ""
+                            self.handleActivityAnimation(isActive: false)
+                            return
                         }
                         if let placemark = placemarks?.first {
                             self.searchTextField.text = placemark.name ?? ""
                         }
+                        self.handleActivityAnimation(isActive: false)
                     }
                 }
             }
@@ -64,9 +73,12 @@ class PostStudentLocationViewController: UIViewController, MKMapViewDelegate {
         
         guard let searchString = searchTextField.text, !searchString.isEmpty else { return }
         
+        handleActivityAnimation(isActive: true)
+        
         CLGeocoder().geocodeAddressString(searchString) { placemarks, error in
             if let error = error {
                 print(error.localizedDescription)
+                self.handleActivityAnimation(isActive: false)
                 return
             }
             
@@ -88,9 +100,12 @@ class PostStudentLocationViewController: UIViewController, MKMapViewDelegate {
                     if let error = error {
                         print(error)
                         self.searchTextField.text = ""
+                        self.handleActivityAnimation(isActive: false)
+                        return
                     }
                     if let placemark = placemarks?.first {
                         self.searchTextField.text = placemark.name ?? ""
+                        self.handleActivityAnimation(isActive: false)
                     }
                 }
                 
@@ -111,12 +126,14 @@ class PostStudentLocationViewController: UIViewController, MKMapViewDelegate {
         let coordinate = lastAddedAnnotation?.coordinate
         let latitude: Double = Double(coordinate?.latitude ?? 0)
         let longitude: Double = Double(coordinate?.longitude ?? 0)
+        
+        handleActivityAnimation(isActive: true)
         OTMUdacityClient.createNewStudentLocation(firstName: firstName, lastName: lastName, mapString: mapString, mediaUrl: mediaURL, lat: latitude, long: longitude, completion: handleCreateNewStudentLocationResponse(success:error:))
     }
     
     func handleCreateNewStudentLocationResponse(success: Bool, error: Error?) {
+        handleActivityAnimation(isActive: false)
         if success {
-            print(success)
             navigationController?.popViewController(animated: true)
         } else {
             showPostFailure(message: error?.localizedDescription ?? "")
@@ -126,7 +143,19 @@ class PostStudentLocationViewController: UIViewController, MKMapViewDelegate {
     func showPostFailure(message: String) {
         let alertVC = UIAlertController(title: "Post location Failed", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        show(alertVC, sender: nil)
+        present(alertVC, animated: true)
+    }
+    
+    func handleActivityAnimation(isActive: Bool) {
+        if isActive {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+        searchTextField.isEnabled = !isActive;
+        mediaUrlTextField.isEnabled = !isActive;
+        postLocationButton.isEnabled = !isActive;
+        searchButton.isEnabled = !isActive
     }
     
     // MARK: - MKMapViewDelegate
