@@ -9,13 +9,13 @@ import Foundation
 
 struct StudentLocation: Codable {
     var objectId: String?
-    let uniqueKey: String
-    let firstName: String
-    let lastName: String
-    let mapString: String
-    let mediaURL: String
-    let latitude: Double
-    let longitude: Double
+    var uniqueKey: String
+    var firstName: String
+    var lastName: String
+    var mapString: String
+    var mediaURL: String
+    var latitude: Double
+    var longitude: Double
     var createdAt: String?
     var updatedAt: String?
     
@@ -31,5 +31,15 @@ struct StudentLocation: Codable {
         self.objectId = objectId
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+    }
+    
+    init() {
+        self.uniqueKey = ""
+        self.firstName = ""
+        self.lastName = ""
+        self.mapString = ""
+        self.mediaURL = ""
+        self.latitude = 0
+        self.longitude = 0
     }
 }
