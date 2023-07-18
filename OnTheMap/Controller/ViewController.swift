@@ -37,61 +37,6 @@ class ViewController: UIViewController {
                 OnTheMapData.locationList = locationList
             }
             performSegue(withIdentifier: "completeLogin", sender: nil)
-            
-            
-            /*print("++++++Create location")
-            let firstName = "Victor"
-            let lastName = "Kas"
-            let mapString = "Kyiv, UA"
-            let mediaURL = "https://udacity.com"
-            let latitude: Double = 40.40
-            let longitude: Double = 40.40
-            OTMUdacityClient.createNewStudentLocation(firstName: firstName, lastName: lastName, mapString: mapString, mediaUrl: mediaURL, lat: latitude, long: longitude, completion: handleCreateNewStudentLocationResponse(success:error:))*/
-        } else {
-            showLoginFailure(message: error?.localizedDescription ?? "")
-        }
-    }
-    
-    func handleCreateNewStudentLocationResponse(success: Bool, error: Error?) {
-        if success {
-            print(success)
-            
-            print("++++++Update location")
-            let firstName = "Victor"
-            let lastName = "Kas"
-            let mapString = "Mariupol, UA"
-            let mediaURL = "https://udacity.com"
-            let latitude: Double = 40.40
-            let longitude: Double = 40.40
-            //Thread.sleep(forTimeInterval: 2.0)
-            OTMUdacityClient.updateExistingStudentLocation(firstName: firstName, lastName: lastName, mapString: mapString, mediaUrl: mediaURL, lat: latitude, long: longitude, completion: handleUpdateExistingStudentLocationResponse(success:error:))
-        } else {
-            showLoginFailure(message: error?.localizedDescription ?? "")
-        }
-    }
-    
-    func handleUpdateExistingStudentLocationResponse(success: Bool, error: Error?) {
-        if success {
-            print(success)
-            OTMUdacityClient.logout(completion: handleLogoutResponse(success:error:))
-        } else {
-            showLoginFailure(message: error?.localizedDescription ?? "")
-        }
-    }
-    
-    func handleLogoutResponse(success: Bool, error: Error?) {
-        if success {
-            print(success)
-            _ = OTMUdacityClient.getPublicUserInfo(completion: handleGetPublicUserInfoResponse(userInfo:error:))
-        } else {
-            showLoginFailure(message: error?.localizedDescription ?? "")
-        }
-    }
-    
-    func handleGetPublicUserInfoResponse(userInfo: UserInfo?, error: Error?) {
-        if let userInfo = userInfo {
-            print(userInfo.lastName)
-            performSegue(withIdentifier: "completeLogin", sender: nil)
         } else {
             showLoginFailure(message: error?.localizedDescription ?? "")
         }

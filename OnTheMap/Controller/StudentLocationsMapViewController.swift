@@ -14,6 +14,8 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
         // We will create an MKPointAnnotation for each dictionary in "locations". The
         // point annotations will be stored in this array, and then provided to the map view.
         var annotations = [MKPointAnnotation]()
@@ -46,8 +48,6 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         // When the array is complete, we add the annotations to the map.
         self.mapView.addAnnotations(annotations)
         
-    }
-    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
@@ -80,7 +80,13 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
             if let toOpen = view.annotation?.subtitle! {
-                app.open(URL(string: toOpen)!)
+                if let url = URL(string: toOpen) {
+                    app.open(url)
+                } else {
+                    let alertVC = UIAlertController(title: "Open URL Failed", message: toOpen, preferredStyle: .alert)
+                    alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    show(alertVC, sender: nil)
+                }
             }
         }
     }

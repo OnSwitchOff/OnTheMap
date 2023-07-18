@@ -40,25 +40,23 @@ extension StudentLocationsListViewController: UITableViewDataSource, UITableView
         let info = OnTheMapData.locationList[indexPath.row]
         
         cell.textLabel?.text = info.firstName + " " + info.lastName
-        /*cell.imageView?.image = UIImage(named: "PosterPlaceholder")
-        if let posterPath = movie.posterPath {
-            TMDBClient.downloadPosterImage(path: posterPath) { data, error in
-                guard let data = data else {
-                    return
-                }
-                let image = UIImage(data: data)
-                cell.imageView?.image = image
-                cell.setNeedsLayout()
-            }
-        }*/
-        
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         OnTheMapData.selectedLocation = OnTheMapData.locationList[indexPath.row]
-        performSegue(withIdentifier: "showDetail", sender: nil)
-        tableView.deselectRow(at: indexPath, animated: true)
+ 
+        let app = UIApplication.shared
+        if let toOpen = OnTheMapData.selectedLocation?.mediaURL {
+            if let url = URL(string: toOpen) {
+                app.open(url)
+            } else {
+                let alertVC = UIAlertController(title: "Open URL Failed", message: toOpen, preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                show(alertVC, sender: nil)
+            }
+        }
     }
 }
 

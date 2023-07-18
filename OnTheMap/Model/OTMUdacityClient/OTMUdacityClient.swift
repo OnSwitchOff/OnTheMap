@@ -90,6 +90,16 @@ class OTMUdacityClient {
                 Auth.sessionId = response.session.id
                 Auth.key = response.account.key
                 print("Auth.sessionId: " + Auth.sessionId)
+                
+                _ = OTMUdacityClient.getPublicUserInfo(userId: response.account.key ,completion: { userInfo, error in
+                    if let error = error {
+                        completion(false, error)
+                    }
+                    
+                    OnTheMapData.firstname = userInfo?.firstName ?? ""
+                    OnTheMapData.lastname = userInfo?.lastName ?? ""
+                })
+                
                 completion(true, nil)
             } else {
                 completion(false, error)
