@@ -370,7 +370,7 @@
                                             <action selector="postLocationTapped:" destination="rdD-ph-sBF" eventType="touchUpInside" id="3iu-nG-Ewt"/>
                                         </connections>
                                     </button>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="qtT-IN-uKa">
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="qtT-IN-uKa">
                                         <rect key="frame" x="0.0" y="253.5" width="365" height="20"/>
                                     </activityIndicatorView>
                                 </subviews>

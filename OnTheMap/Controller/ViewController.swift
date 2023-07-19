@@ -27,7 +27,7 @@ class ViewController: UIViewController {
                 case 400:
                     showLoginFailure(message: "Please enter your credentials")
                 case 403:
-                    showLoginFailure(message: "The credentials were incorrect, please check youy email or/and your password")
+                    showLoginFailure(message: "The credentials were incorrect, please check your email or/and your password")
                 default:
                     showLoginFailure(message: error?.localizedDescription ?? "")
                 }

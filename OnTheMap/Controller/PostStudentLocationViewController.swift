@@ -78,6 +78,7 @@ class PostStudentLocationViewController: UIViewController, MKMapViewDelegate {
         CLGeocoder().geocodeAddressString(searchString) { placemarks, error in
             if let error = error {
                 print(error.localizedDescription)
+                self.showAlertMessage(message: "Input for search was incorrect, please check your address or use map to point your location", title: "Search location Failed")
                 self.handleActivityAnimation(isActive: false)
                 return
             }
@@ -99,6 +100,7 @@ class PostStudentLocationViewController: UIViewController, MKMapViewDelegate {
                 CLGeocoder().reverseGeocodeLocation(location!) { placemarks, error in
                     if let error = error {
                         print(error)
+                        self.showAlertMessage(message: error.localizedDescription, title: "Search location Failed")
                         self.searchTextField.text = ""
                         self.handleActivityAnimation(isActive: false)
                         return
@@ -118,6 +120,7 @@ class PostStudentLocationViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func postLocationTapped(_ sender: Any) {
+        
         let firstName = OnTheMapData.firstname
         let lastName = OnTheMapData.lastname
         let mapString = searchTextField.text!
@@ -136,12 +139,12 @@ class PostStudentLocationViewController: UIViewController, MKMapViewDelegate {
         if success {
             navigationController?.popViewController(animated: true)
         } else {
-            showPostFailure(message: error?.localizedDescription ?? "")
+            showAlertMessage(message: error?.localizedDescription ?? "", title: "Post location Failed")
         }
     }
     
-    func showPostFailure(message: String) {
-        let alertVC = UIAlertController(title: "Post location Failed", message: message, preferredStyle: .alert)
+    func showAlertMessage(message: String, title: String) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alertVC, animated: true)
     }
